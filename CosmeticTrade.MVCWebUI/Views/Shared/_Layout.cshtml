@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Css/all.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Css/style.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body style="background-color:#EEE9E9;">
+    <nav class="p-0 pb-1 ctnavbar">
+        <div class="header navbar-brand">
+            <div id="logo-box">
+                <a href="/">
+                    <img src="~/Content/Images/Logo.bmp" class="logo">
+                </a>
+            </div>
+        </div>
+        <div class="ctnavbar-right">
+            <ul class="nav">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class=" nav-item active ">
+                        <span class="nav-link pt-0" style="font-size:17px;line-height:35px;color: #17a2b8;"> <i class="fas fa-user-shield"></i> @User.Identity.Name</span>
+                    </li>
+                    <li class=" nav-item active">
+                        <a class="nav-link pt-0" style="font-size:17px;line-height:35px;" href=" /Account/Logout"><i class="fas fa-user-secret"></i> LogOut</a>
+                    </li>
+                }
+                else
+                {
+                    <li class=" nav-item active">
+                        <a class=" nav-link pt-0" style="font-size:17px;line-height:35px;" href=" /Account/Login?ReturnUrl=@Request.RawUrl"><i class="fas fa-user"></i> Login</a>
+                    </li>
+                    <li class=" nav-item active">
+                        <a class=" nav-link p-0 pr-2" style="font-size:17px;line-height:35px;" href="/Account/Register"><i class="fas fa-user-plus"></i> Register</a>
+                    </li>
+                }
+
+                <li class="nav-item">
+                    @Html.Action("_NavbarCart", "Cart")
+                </li>
+            </ul>
+        </div>
+        <div>
+            <div class="p-0">
+                <nav class="navbar navbar-expand-md navbar-marka navbar-dark pt-0">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                        @Html.Action("_NavbarBrands", "Home")
+                        <button id="btn-search" class="btn btn-outline-light my-2 my-sm-0" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div id="searchrow" class="row " style="display: none;">
+                <div class="col">
+                    <div class="form-group">
+                        <form action="/Home/Search" method="get">
+                            <input id="searchtext" name="search" type="text" class="form-control" placeholder="Search..." required>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+
+    <div class="mt-2 bottombordo">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <ul class="d-inline-block m-0 w-100 list-inline text-right text-white" style="font-size:25px;">
+                        <li class="list-inline-item ">
+                            <a href="#" style="color:ghostwhite;"><i class="fab fa-instagram mr-1"></i></a>
+                        </li>
+                        <li class="list-inline-item ">
+                            <a href="#" style="color:ghostwhite;"><i class="fab fa-facebook-square mr-1"></i></a>
+                        </li>
+                        <li class="list-inline-item ">
+                            <a href="#" style="color:ghostwhite;"><i class="fab fa-twitter-square mr-1"></i></a>
+                        </li>
+                        <li class="list-inline-item ">
+                            <a href="#" style="color:ghostwhite;"><i class="fab fa-youtube-square mr-1"></i></a>
+                        </li>
+                        <li class="list-inline-item ">
+                            <a href="#" style="color:ghostwhite;"><i class="fab fa-linkedin mr-1"></i></a>
+                        </li>
+                        <li class="list-inline-item " style="padding-right:26px;">
+                            <a href="#" style="color:ghostwhite;"><i class="fab fa-google-plus mr-1"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row " style="font-size: 12px;">
+            <div class="col-lg-3 col-xs-12 about-company d-none d-lg-inline-block">
+                <h4>Blog</h4>
+                <ul class="m-0 p-0" style="list-style:none;">
+                    <li><button type="button" class="btn  btn-sm p-0" style="color:maroon;" data-toggle="modal" data-target="#blog1"> Make Up <i class="fas fa-paint-brush"></i></button></li>
+                    <li><button type="button" class="btn  btn-sm p-0" style="color:maroon;" data-toggle="modal" data-target="#blog2">Perfume <i class="fas fa-spray-can"></i></button></li>
+                    <li><button type="button" class="btn  btn-sm p-0" style="color:maroon;" data-toggle="modal" data-target="#blog3">Skin Care<i class="fas fa-heartbeat"></i></button></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-xs-12 links d-none d-lg-inline-block">
+                <h4 class="mt-lg-0">Brand</h4>
+                <ul class="m-0 p-0" style="list-style:none;">
+                    <li><a href="/Home/List?Brand=Flormar">FLORMAR</a></li>
+                    <li><a href="/Home/List?Brand=GoldenRose">GOLDENROSE</a></li>
+                    <li><a href="/Home/List?Brand=Maybelline">MAYBELLİNE</a></li>
+                    <li><a href="/Home/List?Brand=Pastel">PASTEL</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-xs-12 about-company d-none d-lg-inline-block">
+                <h4 class="mt-lg-0 ">Contact</h4>
+                <p class="mb-0" style="color:green;"><i class="fa fa-phone mr-3"></i>(555) 999-9999</p>
+                <p style="color:green;"><i class="fa fa-envelope mr-3"></i>info@ct.com</p>
+            </div>
+            <div class="col-lg-3 col-xs-12  d-none d-lg-inline-block">
+                <h4 class="mt-lg-0 ">Location</h4>
+                <p style="color:grey;">
+                    Caferağa Mah. Mühürdar Cad. No:76 Kadıköy
+                    TR – İstanbul
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row" style="font-size: 12px;">
+            <div class="col-6 col-xs-12 about-company d-inline-block d-lg-none">
+                <h4>Blog</h4>
+                <ul class="m-0 p-0" style="list-style:none;">
+                    <li><button type="button" class="btn  btn-sm p-0" style="color:maroon;" data-toggle="modal" data-target="#blog1"> Make Up <i class="fas fa-paint-brush"></i></button></li>
+                    <li><button type="button" class="btn  btn-sm p-0" style="color:maroon;" data-toggle="modal" data-target="#blog2">Perfume <i class="fas fa-spray-can"></i></button></li>
+                    <li><button type="button" class="btn  btn-sm p-0" style="color:maroon;" data-toggle="modal" data-target="#blog3">Skin Care<i class="fas fa-heartbeat"></i></button></li>
+                </ul>
+            </div>
+            <div class="col-6 col-xs-12 links d-inline-block d-lg-none">
+                <h4 class="mt-lg-0">Brand</h4>
+                <ul class="m-0 p-0" style="list-style:none;">
+                    <li><a href="/Home/List?Brand=Flormar">FLORMAR</a></li>
+                    <li><a href="/Home/List?Brand=GoldenRose">GOLDENROSE</a></li>
+                    <li><a href="/Home/List?Brand=Maybelline">MAYBELLİNE</a></li>
+                    <li><a href="/Home/List?Brand=Pastel">PASTEL</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-xs-12 about-company d-inline-block d-lg-none">
+                <h4 class="mt-lg-0 ">Contact</h4>
+                <p class="mb-0" style="color:green;"><i class="fa fa-phone mr-3"></i>(555) 999-9999</p>
+                <p style="color:green;"><i class="fa fa-envelope mr-3"></i>info@ct.com</p>
+            </div>
+            <div class="col-6 col-xs-12 d-inline-block d-lg-none">
+                <h4 class="mt-lg-0 ">Location</h4>
+                <p style="color:grey;">
+                    Caferağa Mah. Mühürdar Cad. No:76 Kadıköy
+                    TR – İstanbul
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+        <div>
+            <hr class="m-0" style="border-top: 1px solid rgb(128, 128, 128);" />
+        </div>
+    </div>
+    <div>
+        <div class="col copyright">
+            <p style="text-align:center;"><small class="text-black ">© 2019. Brand Cosmetic Trade. All Rights Reserved.</small></p>
+        </div>
+    </div>
+
+
+    @*Footer Modal İçerik*@
+    <div class="container my-3">
+        <div class="modal fade" id="blog1" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="blog1Label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-info" id="blog1Label">Make Up</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-justify">
+                        <b>Makyaj Malzemesi Almadan Önce Kendi Yüzünüzü Tanıyın!</b>
+                        <p class=" card-text">
+                            Beyaz bir tende iyi görünecek renklerle esmer bir tende iyi bir etki yaratacak renkler
+                            birbirinden çok farklıdır. Benzer şekilde yağlı bir ciltte uzun süre ve düzgün bir biçimde
+                            kalacak malzeme dokusu ile kuru bir cilt için uygun olan doku çok farklıdır. Bu nedenle cilt
+                            dokusu, ten rengi, göz rengi, saç rengi makyaj malzemesi seçiminde dikkate alınmalıdır.
+                        </p>
+                        <b>Malzemelerin Birbiriyle Uyumlu Olmasına Dikkat Edin!</b>
+                        <p class=" card-text">
+                            Gözlerinizde toprak tonlarını kullanırken dudağınızda neon bir ruj hoş bir bütünlük sunamaz.
+                            Bu
+                            nedenle malzemelerin aynı tonlarda ve aynı dokuda olmasına da dikkat etmek önerilir.
+                        </p>
+                        <b>Doğru Malzemeler İçin Alışverişten Önce Planlama Yapın!</b>
+                        <p class=" card-text">
+                            Sürekli evde ya da sokakta geçen bir gündelik yaşamınız mı var, sürekli ağır toplantılara
+                            katıldığınız bir iş yaşamı ya da sıklıkla dahil olmayı sevdiğiniz gece hayatı ve
+                            davetler...işte
+                            bunlar sizin nasıl renklerde ve dokuda malzeme seçmeniz gerektiğini belirleyecek detaylar.
+                            Eğer
+                            günlük yaşamı daha çok ev ortamında geçen bir anneyseniz, renkleri çok baskın olmayan,
+                            giysileri
+                            kolayca boyamayacak dokuda malzemeler, ten renginizle uyumlu renkler tercih etmelisiniz.
+                            Örneğin
+                            günlük makyaj malzemesi kullanımı için nemlendirici, hafif bir renk olan dudak kremi, toprak
+                            rengi tonlarında far paleti, kolayca temizleyebileceğiniz bir maskara yeterli olabilir.
+                            Sabahın
+                            erken saatlerinden itibaren sürekli koşuşturduğunuz bir gündelik yaşam için kalıcılığı fazla
+                            olan malzemeler tercih etmeniz önerilir.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container my-3">
+        <div class="modal fade" id="blog2" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="blog2Label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-info" id="blog2Label">Perfume</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-justify">
+                        <b>Parfüm & Deodorant</b>
+                        <p>
+                            Parfüm seçimi sanıldığından çok daha önemlidir. Doğru parfüm seçimi ile gündelik yaşamı daha konforlu kılmak ve daha iyi hissetmek mümkün olabilir. Ayrıca kişi, kendine uygun parfüm ürünün seçerek ve uzun yıllar aynı kokuyu kullanarak kendi özel tarzını destekleyebilir.
+                        </p>
+                        <b>Koku Seçimi Nasıl Olmalı?</b>
+                        <p>
+                            Kokular ya da parfümler, belirli bir miktar uçucu alkol ile farklı malzemelerin eterik yağları birleştirilerek yapılırlar. Eterik yağlar, daha çok bitkilerden elde edilen ve distilasyon denilen çok zor bir yöntemle çıkarılırlar. Bu nedenle eterik yağlar çok pahalıdır. Ancak parfüm içinde söz konusu eterik yağlardan çok çok az miktarlarda kullanılır. Örneğin gül yağı gül kokusu, çağ yağı çam kokusu, yasemin yağı yasemin kokusu verir. Bunların birbirini baskılamayacak şekilde bir araya getirilmeleri ise parfüm mühendisliği denilen özel bir bilimin işidir. Koku seçiminde basitçe, ten rengi, cilt yapısı, gündelik yaşam ve alışkanlıklar dikkate alınmalıdır. Ayrıca mevsimler de önemli olabilir.
+                        </p>
+                        <b>Tarzınıza Göre  Parfüm Seçimi Yapın!</b>
+                        <p>
+                            Eğer gün içinde çok şık ve çok iddialı bir tarzınız varsa vanilya, misk, amber gibi baskın kokuları ve şekerli kokuları tercih edebilirsiniz. Gündelik yaşamınız son derece sade ise, temizlik odaklı ferahlık hissi veren kokuları tercih edebilirsiniz. Ahududu, bambu ve kivi içeren kokuların da çok farklı keskin bir zevke hitap edeceğini ekleyelim. Ayrıca son bir kaç yıldır bu kokular çok trend.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container my-3">
+        <div class="modal fade" id="blog3" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="blog3Label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-info" id="blog3Label">Skin</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-justify">
+                        <b>Cilt Bakımı Nasıl Yapılır?</b>
+                        <p>
+                            Cilt bakımı için ilk kural temizliktir. Cildin derinlemesine temizlenmesi bakımın ilk aşamasını oluşturur.Cilt temizliği ise kliniklerde doktor kontrolünde yapılan derinlemesine temizlik ve ölü doku arındırma ya da ev tipi cilt temizliği şeklinde ikiye ayrılır. Evde cilt bakımı yaparken cilt yapısına uygun bir yüz temizleme jeli kullanılması önerilir. Önce yüz temizleme jeli ile ılık suda yüzünüzü iyice yıkamanı tavsiye edilir. Bu yıkama işlemini bir yüz temizleme fırçası yardımıyla ya da süngerle de yapabilirsiniz. Elinizle yapacağınız temizleme işleminden daha etkili bir sonuç sunacaktır. Ardından kil bazlı maskeleri deneyebilirsiniz. Kil maskeler yüzde kuruyarak ciltteki yağı ve kiri emer. Tekrar yüzünüzü ılık suyla yıkayıp yüz temizleme pamukları ile yine cilt tipinize uygun bir tonikle silebilirsiniz. Tonikle silme işleminden sonra cildinizde gözeneklerin açıldığını, oldukça etkili bir temizleme elde ettiğinizi hissedebilirsiniz. Nefes alan temiz cilde uygun bir nemlendirici ile kaybettiği nemi kazandırmanız gerekir. Masaj yaparak yüzünüzü iyice nemlendirebilirsiniz. Göz çevresi bakım kremleri de mutlaka kullanılmalıdır. Çünkü yüzün diğer bölgelerine çok daha hassas ve ince olan göz çevresi bu dokuya uygun bir nemlendirici ile nemlendirilmelidir. Aksi halde tahriş olabilir, yağ bezesi oluşabilir.
+                        </p>
+                        <b>El ve Vücut Bakımı Malzemeleri</b>
+                        <p>
+                            Eller, en hızlı kalojen kaybı yaşayan ve en hızlı deforme olan cilt dokusuna sahiptir.Gün boyu farklı amaçlarla kullandığımız ellerimizin iyi görünmesi kadar konforu da önemlidir. Tırnakları kırılmış, kedi tırnağı çıkmış, tırnak yanları çatlamış bir el, gündelik yaşantımızı da zorlaştırabilir. Bu amaçla uygun el bakım kremleri kullanmak, yatmadan önce elleri yıkayıp nemlendirmek, tırnakları doğru şekilde kesmek ve çok uzun bırakmamak tavsiye edilir. El kremi seçiminde cilt tipine uygun ürünler tercih etmek gerekir. Vücut bakımı için de cildin kurumasına izin vermemek önemlidir. Bu amaçla özellikle duştan sonra hızlıca vücut nemlendiricisi kullanılabilir. Duşta kullanılan nemlendiriciler de iyi sonuç verebilir ve çok pratiktir.
+                        </p>
+                        <b> Dudak Bakımı Neden Önemli!</b>
+                        <p>
+                            Yüzde çekici ve iyi bir görünüm için öne çıkan üç temel nokta vardır. Temiz ve genç bir cilt dokusu, belirgin bakışlar ve dolgun diri dudaklar. Nemli, çatlak ve yaraları olmayan bir dudak dokusu hem dudak makyajını daha iyi gösterir hem de günlük konforu arttır. Ayrıca dudakların hızlı yaşlanmasına ve hızlı incelmesine de engel olur. Dudak bakım kremleri kullanmak, bayatlamış rujları atmak, gece makyajla yatmamaya özen göstermek gibi ufak günlük alışkanlıklarla dudak bakımını sağlamak mümkün.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Footer Modal İçerik son*@
+
+
+    <script src="~/Scripts/Js/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/Js/popper.min.js"></script>
+    <script src="~/Scripts/Js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Js/js.js"></script>
+</body>
+</html>

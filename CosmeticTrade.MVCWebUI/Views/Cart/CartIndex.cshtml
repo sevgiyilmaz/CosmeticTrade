@@ -1,0 +1,112 @@
+﻿@model CartModel
+@{
+    Layout = null;
+    ViewBag.Title = "Shopping Cart";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CartIndex</title>
+    <link href="~/Content/Css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Css/all.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="font-family:cursive; font-size: 12px;">
+    <div class="container mt-5">
+        <div class="row bg-light">
+            <div class="col">
+                <div class="py-3">
+                    <h4>Cart Items</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row bg-light">
+            <div class="col">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="table-responsive">
+                            @if (Model.CartLine.Count > 0)
+                            {
+                                <table class="table table-hover text-center">
+                                    <thead class="text-info">
+                                        <tr>
+                                            <th></th>
+                                            <th class="text-left">Product Name</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>SubTotal</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var cartItemModel in Model.CartLine)
+                                        {
+                                            <tr>
+                                                <td><img src="@cartItemModel.Image" width="80" /></td>
+                                                <td class="align-middle text-left">@Html.ActionLink(cartItemModel.Name, "Detail", "Home", new { id = cartItemModel.ProductId }, new { @class = "card-Link" })</td>
+                                                <td class="align-middle">@cartItemModel.Price.ToString("c")</td>
+                                                <td class="align-middle">@cartItemModel.Quantity</td>
+                                                <td class="align-middle">@cartItemModel.SubTotal.ToString("c")</td>
+
+
+                                                <td class="align-middle">
+                                                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                                                    {
+                                                        @Html.Hidden("Id", cartItemModel.ProductId)
+                                                        <button type="submit" class=" btn btn-danger btn-sm"><i class="fas fa-trash-restore"></i></button>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                            else
+                            {
+                                <div class=" alert" style="font-size:30px; text-align:end; color:red;">No Product in Cart!</div>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        @if (Model.CartLine.Count > 0)
+                        {
+                            <table class="table mt-3 mt-md-0">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">Cart Summary</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><th class="text-info">Cart Total</th><td>@Model.Total().ToString("c")</td></tr>
+                                    <tr><th class="text-info">Shipping</th><td>Free</td></tr>
+                                    <tr><th class="text-info">Order Total</th><td>@Model.Total().ToString("c")</td></tr>
+                                </tbody>
+                            </table>
+                            <div class=" text-center">
+                                <a href="/" class=" btn btn-info d-block d-xl-inline-block mb-2"><i class="fa fa-arrow-circle-left fa-fw"></i> Continue Shopping</a>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <a href="/Order/Pay" class="btn btn-info  d-block d-xl-inline-block mb-2">Payment <i class="fa fa-arrow-alt-circle-right fa-fw"></i></a>
+                                }
+                                else
+                                {
+                                    <a href="/Account/Login?ReturnUrl=@Request.RawUrl" class="btn btn-info  d-block d-xl-inline-block mb-2">Login <i class="fa fa-arrow-alt-circle-right fa-fw"></i></a>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="~/Scripts/Js/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/Js/popper.min.js"></script>
+    <script src="~/Scripts/Js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Js/js.js"></script>
+</body>
+</html>

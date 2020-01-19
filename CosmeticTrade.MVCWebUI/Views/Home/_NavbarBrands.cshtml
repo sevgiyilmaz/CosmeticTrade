@@ -1,0 +1,10 @@
+﻿@model List<string>
+<ul id="navbarmarka" class="navbar-nav mr-auto mt-2 mt-lg-0 font-weight-bold">
+    @foreach (var brand in Model)
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="/Home/List?Brand=@brand" style="text-transform:capitalize;">@brand</a>
+        </li>
+    }
+</ul>
+

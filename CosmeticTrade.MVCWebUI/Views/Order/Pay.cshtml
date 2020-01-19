@@ -1,0 +1,127 @@
+﻿@model PayVM
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CartIndex</title>
+    <link href="~/Content/Css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Css/all.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Css/style.css" rel="stylesheet" type="text/css" />
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body style="font-family:cursive; font-size: 12px;">
+    <form action="/Order/OrderCompleted" method="get">
+
+
+        <div class="container mt-5">
+            <div class="row bg-light">
+                <div class="col">
+                    <div class="py-3">
+                        <h4>Pay screen</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row bg-light pb-3">
+                <div class="col">
+                    <div class="row">
+                        <div class="col-5">
+
+                            <div>
+                                <img src="~/Content/Images/paycc.png" style="max-width:400px;" />
+                                <input pattern="[0-9]{16}" style="position: absolute; left: 50px; top: 135px; width: 325px; height: 25px;" placeholder="Credit Cart Number" required />
+                            </div>
+                        </div>
+                        <div class="col-3 style=" height:100%"">
+                            <div class="row h-50">
+                                <div class="col">
+                                    <h4>Ship Address</h4>
+                                    @Model.ShipAddress
+                                </div>
+                            </div>
+                            <div class="row h-50">
+                                <div class="col">
+                                    <h4>Shipper</h4>
+                                    <div class="form-group">
+                                        @Html.DropDownList("ShipperId", (SelectList)ViewBag.Shippers, new { @class = "form-control", @style = "background-color:gainsboro;" })
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <h4>Order Summary</h4>
+                            <div class="table-responsive">
+                                @if (Model.Cart.CartLine.Count > 0)
+                                {
+                                    <table class="table table-hover text-center table-sm">
+                                        <thead class="text-info">
+                                            <tr>
+                                                <th class="text-left">Product Name</th>
+                                                <th>Quantity</th>
+                                                <th>SubTotal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var cartItemModel in Model.Cart.CartLine)
+                                            {
+                                                <tr>
+                                                    <td class="align-middle text-left">@cartItemModel.Name</td>
+                                                    <td class="align-middle">@cartItemModel.Quantity</td>
+                                                    <td class="align-middle">@cartItemModel.SubTotal.ToString("c")</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <tfooter>
+                                            <tr class="font-weight-bold">
+                                                <td class="text-left">
+                                                    Order Total
+                                                </td>
+                                                <td>
+                                                    @Model.Cart.CartLine.Sum(i => i.Quantity)
+                                                </td>
+                                                <td>
+                                                    @Model.Cart.Total().ToString("c")
+                                                </td>
+                                            </tr>
+                                        </tfooter>
+                                    </table>
+                                }
+                                else
+                                {
+                                    <div class=" alert" style="font-size:30px; text-align:end; color:red;">No Product in Cart!</div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col p-0 text-right">
+                    <button type="submit" class="btn btn-outline-info rounded-0">Completed Shopping</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script src="~/Scripts/Js/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/Js/popper.min.js"></script>
+    <script src="~/Scripts/Js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Js/js.js"></script>
+</body>
+</html>

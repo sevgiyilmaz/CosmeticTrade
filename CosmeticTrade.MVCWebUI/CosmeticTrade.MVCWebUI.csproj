@@ -1,0 +1,416 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{41D03D13-7CE7-4424-A159-CA76C23724F3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CosmeticTrade.MVCWebUI</RootNamespace>
+    <AssemblyName>CosmeticTrade.MVCWebUI</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>3.6</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DataAnnotationsExtensions, Version=5.0.1.27, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataAnnotationsExtensions.5.0.1.27\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Css\bootstrap.min.css" />
+    <Content Include="Content\Css\all.min.css" />
+    <Content Include="Content\Css\style.css" />
+    <Content Include="Content\Images\Monthproduct.jpg" />
+    <Content Include="Content\Images\border-bottom-reverse.png" />
+    <Content Include="Content\Images\border-bottom.png" />
+    <Content Include="Content\Images\cs1.jpg" />
+    <Content Include="Content\Images\CategoryIMG\allık.jpg" />
+    <Content Include="Content\Images\CategoryIMG\far.jpg" />
+    <Content Include="Content\Images\CategoryIMG\fondöten.jpg" />
+    <Content Include="Content\Images\CategoryIMG\oje.jpg" />
+    <Content Include="Content\Images\CategoryIMG\parfüm.jpg" />
+    <Content Include="Content\Images\CategoryIMG\pudra.jpg" />
+    <Content Include="Content\Images\CategoryIMG\rimel.jpg" />
+    <Content Include="Content\Images\CategoryIMG\ruj.jpg" />
+    <Content Include="Content\Images\Logo.bmp" />
+    <Content Include="Content\Images\None.jpg" />
+    <Content Include="Content\Images\paycc.png" />
+    <Content Include="Content\Images\PLimg\935CinnemonSpice1.jpg" />
+    <Content Include="Content\Images\PLimg\935CinnemonSpice2.jpg" />
+    <Content Include="Content\Images\PLimg\935CinnemonSpice3.jpg" />
+    <Content Include="Content\Images\PLimg\FlarmarfondötenM306.jpg" />
+    <Content Include="Content\Images\PLimg\Flormar05peachbrown.jpg" />
+    <Content Include="Content\Images\PLimg\FlormarColorUpLipCrayonRuj03BrownishNude-37.jpg" />
+    <Content Include="Content\Images\PLimg\Flormarcompactpowderw04.jpg" />
+    <Content Include="Content\Images\PLimg\FlormarDeluxeShineGlossd36ruj-32.jpg" />
+    <Content Include="Content\Images\PLimg\FlormarHdWeightlessMAtteRuj15Mocha.jpg" />
+    <Content Include="Content\Images\PLimg\FlormarLipBalmBlackMulberry02Redesing-22.jpg" />
+    <Content Include="Content\Images\PLimg\Flormarmatteojem45.jpg" />
+    <Content Include="Content\Images\PLimg\Flormarmatteojem55.jpg" />
+    <Content Include="Content\Images\PLimg\FlormarQuartedfar402.jpg" />
+    <Content Include="Content\Images\PLimg\FlormarSupermatteLipstick-32.jpg" />
+    <Content Include="Content\Images\PLimg\FlormarSuperMatteLipstick206-32.jpg" />
+    <Content Include="Content\Images\PLimg\Flormarx10maskara.jpg" />
+    <Content Include="Content\Images\PLimg\GoldenRoseDreamLipsLipliner526-6.jpg" />
+    <Content Include="Content\Images\PLimg\GoldenRoseLipBalmPomeGranateSpf15nar-9.jpg" />
+    <Content Include="Content\Images\PLimg\GoldenRoseNudeLookPerfectMatteLipstick03-28.jpg" />
+    <Content Include="Content\Images\PLimg\GoldenRoseSheerShineStyloRujLipstickno31-25.jpg" />
+    <Content Include="Content\Images\PLimg\GoldenRoseVelvetMatterujlipstickno31-18,90.jpg" />
+    <Content Include="Content\Images\PLimg\GRBakedblusher.jpg" />
+    <Content Include="Content\Images\PLimg\GRexpertoje106.jpg" />
+    <Content Include="Content\Images\PLimg\GRfantastic3Dmascara.jpg" />
+    <Content Include="Content\Images\PLimg\GRfoundationConcealer12.jpg" />
+    <Content Include="Content\Images\PLimg\GRlongWearpowder.jpg" />
+    <Content Include="Content\Images\PLimg\GRmoisturiser02-1.jpg" />
+    <Content Include="Content\Images\PLimg\GRmoisturiser02-2.jpg" />
+    <Content Include="Content\Images\PLimg\GRoje112.jpg" />
+    <Content Include="Content\Images\PLimg\GRoje29.jpg" />
+    <Content Include="Content\Images\PLimg\GRPalette109far.jpg" />
+    <Content Include="Content\Images\PLimg\KissMeMore1.jpg" />
+    <Content Include="Content\Images\PLimg\KissMeMore2.jpg" />
+    <Content Include="Content\Images\PLimg\KissMeMore3.jpg" />
+    <Content Include="Content\Images\PLimg\KissMeMore4.jpg" />
+    <Content Include="Content\Images\PLimg\MaybellineNewYorkBabyLipsBalm-Blush-15.jpg" />
+    <Content Include="Content\Images\PLimg\maybellineNewYorkColorSensationalDudakKalemi92DivineWine-26.jpg" />
+    <Content Include="Content\Images\PLimg\MaybellineNewYorkColorSensationalMadeForAll-26.jpg" />
+    <Content Include="Content\Images\PLimg\MaybellineNewYorkColorSensationalSmokedRoses-26.jpg" />
+    <Content Include="Content\Images\PLimg\Mblush40peach1.jpg" />
+    <Content Include="Content\Images\PLimg\Mblush40peach2.jpg" />
+    <Content Include="Content\Images\PLimg\Mblush40peach3.jpg" />
+    <Content Include="Content\Images\PLimg\Mblush40peach4.jpg" />
+    <Content Include="Content\Images\PLimg\Meyeshadowpaletteblushednudes.jpg" />
+    <Content Include="Content\Images\PLimg\Mfondöten110porcelain.jpg" />
+    <Content Include="Content\Images\PLimg\MLashSensastionalextrablack1.jpg" />
+    <Content Include="Content\Images\PLimg\MLashSensastionalextrablack2.jpg" />
+    <Content Include="Content\Images\PLimg\MLashSensastionalextrablack3.jpg" />
+    <Content Include="Content\Images\PLimg\MLashSensastionalextrablack4.jpg" />
+    <Content Include="Content\Images\PLimg\Mpudra120-1.jpg" />
+    <Content Include="Content\Images\PLimg\Mpudra120-2.jpg" />
+    <Content Include="Content\Images\PLimg\Mpudra120-3.jpg" />
+    <Content Include="Content\Images\PLimg\parfüm.jpg" />
+    <Content Include="Content\Images\PLimg\pastelfar75.jpg" />
+    <Content Include="Content\Images\PLimg\pastelfondöten353.jpg" />
+    <Content Include="Content\Images\PLimg\pastelnudeoje761.jpg" />
+    <Content Include="Content\Images\PLimg\pastelNudeRuj536-21.jpg" />
+    <Content Include="Content\Images\PLimg\PastelTerracottaPowder52.jpg" />
+    <Content Include="Content\Images\PLimg\Pblush441.jpg" />
+    <Content Include="Content\Images\PLimg\Pmultidimensionalmascara.jpg" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\webfonts\fa-solid-900.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\Js\bootstrap.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Content\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\webfonts\fa-solid-900.woff2" />
+    <Content Include="Scripts\Js\bs-custom-file-input.min.js" />
+    <Content Include="Scripts\Js\jquery-3.4.1.js" />
+    <Content Include="Scripts\Js\js.js" />
+    <Content Include="Scripts\Js\jssor.slider-28.0.0.min.js" />
+    <Content Include="Scripts\Js\popper.min.js" />
+    <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\src\methods\defaults.js" />
+    <Content Include="Scripts\src\methods\destroy.js" />
+    <Content Include="Scripts\src\methods\disableEventListeners.js" />
+    <Content Include="Scripts\src\methods\enableEventListeners.js" />
+    <Content Include="Scripts\src\methods\placements.js" />
+    <Content Include="Scripts\src\methods\update.js" />
+    <Content Include="Scripts\src\modifiers\applyStyle.js" />
+    <Content Include="Scripts\src\modifiers\arrow.js" />
+    <Content Include="Scripts\src\modifiers\computeStyle.js" />
+    <Content Include="Scripts\src\modifiers\flip.js" />
+    <Content Include="Scripts\src\modifiers\hide.js" />
+    <Content Include="Scripts\src\modifiers\index.js" />
+    <Content Include="Scripts\src\modifiers\inner.js" />
+    <Content Include="Scripts\src\modifiers\keepTogether.js" />
+    <Content Include="Scripts\src\modifiers\offset.js" />
+    <Content Include="Scripts\src\modifiers\preventOverflow.js" />
+    <Content Include="Scripts\src\modifiers\shift.js" />
+    <Content Include="Scripts\src\utils\clockwise.js" />
+    <Content Include="Scripts\src\utils\computeAutoPlacement.js" />
+    <Content Include="Scripts\src\utils\debounce.js" />
+    <Content Include="Scripts\src\utils\find.js" />
+    <Content Include="Scripts\src\utils\findCommonOffsetParent.js" />
+    <Content Include="Scripts\src\utils\findIndex.js" />
+    <Content Include="Scripts\src\utils\getBordersSize.js" />
+    <Content Include="Scripts\src\utils\getBoundaries.js" />
+    <Content Include="Scripts\src\utils\getBoundingClientRect.js" />
+    <Content Include="Scripts\src\utils\getClientRect.js" />
+    <Content Include="Scripts\src\utils\getFixedPositionOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetRect.js" />
+    <Content Include="Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getOppositePlacement.js" />
+    <Content Include="Scripts\src\utils\getOppositeVariation.js" />
+    <Content Include="Scripts\src\utils\getOuterSizes.js" />
+    <Content Include="Scripts\src\utils\getParentNode.js" />
+    <Content Include="Scripts\src\utils\getPopperOffsets.js" />
+    <Content Include="Scripts\src\utils\getReferenceNode.js" />
+    <Content Include="Scripts\src\utils\getReferenceOffsets.js" />
+    <Content Include="Scripts\src\utils\getRoot.js" />
+    <Content Include="Scripts\src\utils\getRoundedOffsets.js" />
+    <Content Include="Scripts\src\utils\getScroll.js" />
+    <Content Include="Scripts\src\utils\getScrollParent.js" />
+    <Content Include="Scripts\src\utils\getStyleComputedProperty.js" />
+    <Content Include="Scripts\src\utils\getSupportedPropertyName.js" />
+    <Content Include="Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getWindow.js" />
+    <Content Include="Scripts\src\utils\getWindowSizes.js" />
+    <Content Include="Scripts\src\utils\includeScroll.js" />
+    <Content Include="Scripts\src\utils\index.js" />
+    <Content Include="Scripts\src\utils\isBrowser.js" />
+    <Content Include="Scripts\src\utils\isFixed.js" />
+    <Content Include="Scripts\src\utils\isFunction.js" />
+    <Content Include="Scripts\src\utils\isIE.js" />
+    <Content Include="Scripts\src\utils\isModifierEnabled.js" />
+    <Content Include="Scripts\src\utils\isModifierRequired.js" />
+    <Content Include="Scripts\src\utils\isNumeric.js" />
+    <Content Include="Scripts\src\utils\isOffsetContainer.js" />
+    <Content Include="Scripts\src\utils\removeEventListeners.js" />
+    <Content Include="Scripts\src\utils\runModifiers.js" />
+    <Content Include="Scripts\src\utils\setAttributes.js" />
+    <Content Include="Scripts\src\utils\setStyles.js" />
+    <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper.js.flow" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cart\CartModel.cs" />
+    <Compile Include="Models\DTO\Account\CustomAuthorize.cs" />
+    <Compile Include="Models\DTO\Account\ForgotPassword.cs" />
+    <Compile Include="Models\DTO\Account\LoginDTO.cs" />
+    <Compile Include="Models\DTO\Account\RegisterDTO.cs" />
+    <Compile Include="Models\VM\Order\PayVM.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\MailHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\AddOrUpdate.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\AddOrUpdate.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Shop\Detail.cshtml" />
+    <None Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Home\Detail.cshtml" />
+    <Content Include="Views\Home\List.cshtml" />
+    <Content Include="Views\Cart\CartIndex.cshtml" />
+    <Content Include="Views\Cart\_NavbarCart.cshtml" />
+    <Content Include="Views\Home\_NavbarBrands.cshtml" />
+    <Content Include="Views\Home\_GetCategories.cshtml" />
+    <Content Include="Views\Order\TimeOut.cshtml" />
+    <Content Include="Views\Home\_BestSellers.cshtml" />
+    <Content Include="Views\Account\MailApprove.cshtml" />
+    <Content Include="Views\Account\RegisterInfo.cshtml" />
+    <Content Include="Views\Account\NoAccess.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\PasswordInfo.cshtml" />
+    <Content Include="Views\Order\Pay.cshtml" />
+    <Content Include="Views\Order\OrderInfo.cshtml" />
+    <Content Include="Views\Order\OrderNotCreated.cshtml" />
+    <Content Include="Views\Order\_OrderMailHelper.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Home\_MonthBestSeller.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CosmeticTrade.BLL\CosmeticTrade.BLL.csproj">
+      <Project>{c773fd0c-99a9-408d-ac26-f78f53f29e17}</Project>
+      <Name>CosmeticTrade.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CosmeticTrade.DAL\CosmeticTrade.DAL.csproj">
+      <Project>{781e0a90-c080-4c0f-8b78-c2573a73eb9b}</Project>
+      <Name>CosmeticTrade.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49721</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52378/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

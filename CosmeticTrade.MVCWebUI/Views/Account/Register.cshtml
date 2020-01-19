@@ -1,0 +1,72 @@
+﻿@model RegisterDTO
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <link href="~/Content/Css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body style="background-color:#d2d2d2">
+    <div class="container">
+        <div class="row" style="margin-top:100px">
+            <div class="col-lg-4 col-md-6 col-sm-9 mx-auto">
+                <div class="card card-body shadow-lg">
+                    <div class="p-2 rounded shadow" style="background-color:#2bbbad; margin-top:-50px;">
+                        <span class="btn btn-light btn-block font-weight-bold" style="color:#2bbbad;">Register</span>
+                    </div>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group mt-3">
+                            <label>Name</label>
+                            @Html.TextBoxFor(i => i.Name, new { @class = "form-control shadow" })
+                            @Html.ValidationMessageFor(i => i.Name, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Sur Name</label>
+                            @Html.TextBoxFor(i => i.SurName, new { @class = "form-control shadow" })
+                            @Html.ValidationMessageFor(i => i.SurName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>User Name</label>
+                            @Html.TextBoxFor(i => i.UserName, new { @class = "form-control shadow" })
+                            @Html.ValidationMessageFor(i => i.UserName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Your email</label>
+                            @Html.TextBoxFor(i => i.Email, new { @class = "form-control shadow" })
+                            @Html.ValidationMessageFor(i => i.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group mt-3">
+                            <label>Your Shipaddress</label>
+                            @Html.TextAreaFor(i => i.ShipAddress, new { @class = "form-control shadow" })
+                            @Html.ValidationMessageFor(i => i.ShipAddress, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Your password</label>
+                            @Html.PasswordFor(i => i.Password, new { @class = "form-control shadow" })
+                            @Html.ValidationMessageFor(i => i.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Repeat password</label>
+                            @Html.PasswordFor(i => i.ConfirmPassword, new { @class = "form-control shadow" })
+                            @Html.ValidationMessageFor(i => i.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                        <button type="submit" class="btn text-white d-inline mt-2 btn-block" style="background-color:#2bbbad;">Sign Up</button>
+                    }
+                    <hr />
+                    <a href="/Account/Login" class="card-link text-center">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/Js/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/Js/popper.min.js"></script>
+    <script src="~/Scripts/Js/popper.min.js"></script>
+</body>
+</html>

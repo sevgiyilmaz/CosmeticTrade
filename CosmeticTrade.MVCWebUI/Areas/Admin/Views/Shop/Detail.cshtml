@@ -1,0 +1,64 @@
+﻿@model Order
+@{
+    ViewBag.Title = "Detail";
+}
+
+<div class="p-3 p-sm-0">
+    <table>
+        <tr>
+            <td><label class="font-weight-bold ">Order State</label></td>
+            <td>
+                @if (Model.OrderStatus)
+                {
+                    <label>: Approved</label>
+                }
+                else
+                {
+                    <a href="/Admin/Shop/OrderStatus/@Model.Id" class="btn btn-info btn-sm">Approve</a>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td><label class="font-weight-bold ">User Name</label></td>
+            <td><label style="text-transform:uppercase">: @Model.User.Name</label></td>
+        </tr>
+        <tr>
+            <td><label class="font-weight-bold ">Order Number</label></td>
+            <td><label>: @Model.OrderNumber</label></td>
+        </tr>
+        <tr>
+            <td><label class="font-weight-bold ">Cargo Company</label></td>
+            <td><label style="text-transform:uppercase">: @Model.Shipper.CompanyName</label></td>
+        </tr>
+        <tr>
+            <td><label class="font-weight-bold ">Order Date</label></td>
+            <td><label>: @Model.CreatedDate.ToShortDateString()</label></td>
+        </tr>
+        <tr>
+            <td style="width:170px"><label class="font-weight-bold">Amount To Be Paid</label></td>
+            <td><label>: <u style="font-weight: 600;color: rebeccapurple;">@Model.OrderDetails.Sum(i => i.UnitPrice).ToString("c2")</u></label></td>
+        </tr>
+    </table>
+    <table class="table table-responsive-sm table-hover">
+        <thead class="bg-dark text-white">
+            <tr>
+                <th>Brand</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var orderDetail in Model.OrderDetails)
+            {
+                <tr>
+                    <td style="text-transform:uppercase">@orderDetail.Product.Brand</td>
+                    <td style="text-transform:capitalize">@orderDetail.Product.Name</td>
+                    <td>@orderDetail.Quantity</td>
+                    <td>@orderDetail.UnitPrice.ToString("c2")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

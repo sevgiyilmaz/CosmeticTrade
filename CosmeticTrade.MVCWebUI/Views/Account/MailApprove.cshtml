@@ -1,0 +1,11 @@
+﻿@model User
+@{
+    ViewBag.Title = "MailApprove";
+}
+<div class="jumbotron">
+    <h1 class="display-4">Your mail account has been approved.</h1>
+    <p class="lead">@Model.Username with created username your account has been approved.You can Login.</p>
+    <hr class="my-4">
+    <a class="btn btn-primary btn-lg" href="/Account/Login" role="button">Login</a>
+</div>
+

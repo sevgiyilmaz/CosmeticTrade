@@ -1,0 +1,10 @@
+﻿@model Product
+<div class="card bg-dark text-white">
+    <img src="/Content/Images/Monthproduct.jpg" class="card-img">
+    <div class="card-img-overlay text-center p-0 pb-sm-4">
+        <h5 class="card-title text-dark m-0 mb-sm-4">Ayın En Çok Satan Ürünü</h5>
+        <a href="/Home/Detail/@Model.Id">
+            <img class="shadow-lg" style="max-height:75%;border-radius:15px" src="@(Model.Images.FirstOrDefault(i=>i.IsDeleted==false)!=null?Model.Images.FirstOrDefault(i=>i.IsDeleted==false).ImageUrl:"/Content/Images/None.jpg")" alt="@Model.Name">
+        </a>
+    </div>
+</div>

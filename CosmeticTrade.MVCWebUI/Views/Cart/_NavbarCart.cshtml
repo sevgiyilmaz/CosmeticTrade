@@ -1,0 +1,14 @@
+﻿@model CartModel
+<a href="/Cart/CartIndex" class="btn btn-outline-light border-0 font-weight-bold btn-card">
+    <i class="fa fa-shopping-cart" style="font-size: 24px;"></i>
+    <span class="badge badge-light ml-2" style="font-size: 10px;">
+        @if (Model.CartLine.Count > 0)
+        {
+            <span>@Model.Adet()</span>
+        }
+        else
+        {
+            <span>0</span>
+        }
+    </span>
+</a>

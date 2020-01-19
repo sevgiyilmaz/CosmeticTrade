@@ -1,0 +1,295 @@
+﻿@using CosmeticTrade.DAL.ORM.Entity;
+@model Product
+@{
+    ViewBag.Title = "Detail";
+}
+
+<div class="main container">
+    <div class="row">
+        <div class="col">
+            <div class="card cardPD">
+                <div class="row no-gutters">
+                    <div class="col-lg-4 col-md">
+                        <div class="row no-gutters">
+                            <div class="col pt-5">
+                                <img id="productimgshow" src="@(Model.Images.FirstOrDefault(i=>i.IsDeleted==false)!=null?Model.Images.FirstOrDefault(i=>i.IsDeleted==false).ImageUrl:"/Content/Images/None.jpg")" class="rounded mx-auto d-block border shadow" alt="@Model.Name" style="max-width:70%;">
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <div class="col mt-2 text-center">
+                                @if (Model.Images.Count() > 0)
+                                {
+                                    foreach (var image in Model.Images)
+                                    {
+                                        if (image.IsDeleted == false)
+                                        {
+                                            <img onclick="ImageShow(this)" src="@image.ImageUrl" class="rounded border mx-1 productimg" alt="@Model.Name" style="max-width:15%;cursor:pointer">
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md pr-0">
+                        <div class="card-body">
+                            <div class="clearfix">
+                                <h5 class="card-title d-inline-block" style="text-transform:uppercase;">@Model.Brand</h5>
+                                <button type="button" class="btn btn-outline-secondary float-right d-none d-lg-block" data-toggle="modal" data-target="#staticBackdrop">
+                                    Info <i class="fas fa-smile-beam text-info"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary float-right d-block d-lg-none" data-toggle="modal" data-target="#staticBackdrop">
+                                    <i class="fas fa-smile-beam text-info"></i>
+                                </button>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <button type="button" class="btn btn-outline-secondary float-right mr-2 d-none d-lg-block" data-toggle="modal" data-target="#staticBackdrop2">
+                                        Commentary <i class="far fa-comment-dots text-info"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary float-right mr-2 d-block d-lg-none" data-toggle="modal" data-target="#staticBackdrop2">
+                                        <i class="far fa-comment-dots text-info"></i>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-outline-secondary float-right mr-2 d-none d-lg-block">Commentary <i class="far fa-comment-dots text-info"></i></button>
+                                    <button class="btn btn-outline-secondary float-right mr-2 d-block d-lg-none"><i class="far fa-comment-dots text-info"></i></button>
+                                }
+                            </div>
+                            <p class="card-text" style="text-transform:capitalize;">@Model.Name</p>
+                            <p class="badge badge-secondary">@(Model.Stock > 0 ? "In Stock" : "Out Stok")</p>
+                            <p class="product-number">Code: @Model.Code</p>
+                            <p style="text-transform:capitalize;">
+                                @Model.Description
+                            </p>
+                            <p>
+                                <table>
+                                    <tr>
+                                        <td><i class="fas fa-smile text-success" style="font-size:30px"></i></td>
+                                        <td>@Model.Commentaries.Count(i => i.Like == true)</td>
+                                        <td><i class="fas fa-frown text-danger ml-4" style="font-size:30px"></i></td>
+                                        <td>@Model.Commentaries.Count(i => i.Like == false)</td>
+                                    </tr>
+                                </table>
+                            </p>
+                            <div>
+                                <h4>@Model.Price.ToString("c")</h4>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            @if (Model.Insales)
+                            {
+                                if (((CartModel)Session["Cart"]).CartLine.FirstOrDefault(i => i.ProductId == Model.Id) != null)
+                                {
+                                    if (Model.Stock > ((CartModel)Session["Cart"]).CartLine.FirstOrDefault(i => i.ProductId == Model.Id).Quantity)
+                                    {
+                                        using (Html.BeginForm("AddToCart", "Cart"))
+                                        {
+                                            @Html.Hidden("Id", Model.Id)
+                                            <button class="btn btn-block btn-info">
+                                                <i class="fa fa-cart-plus"></i>
+                                                Add To Cart
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-info disabled">Sold Out</button>
+                                    }
+                                }
+                                else
+                                {
+                                    if (Model.Stock > 0)
+                                    {
+                                        using (Html.BeginForm("AddToCart", "Cart"))
+                                        {
+                                            @Html.Hidden("Id", Model.Id)
+                                            <button class="btn btn-info">
+                                                <i class="fa fa-cart-plus"></i>
+                                                Add To Cart
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-info disabled">Sold Out</button>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <button class="btn btn-info disabled">Not On Sale</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<span>@ViewBag.CommentaryError</span>
+
+<div class="main container">
+    @foreach (var commentary in Model.Commentaries)
+    {
+        <div class="row mt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="row no-gutters">
+                        <div class="col-md-2">
+                            <div class="card-body">
+                                <p class="bg-secondary text-center py-2 rounded font-weight-bold text-white" style="text-transform:uppercase;">
+                                    @commentary.User.Username
+                                </p>
+                                <p class="text-center m-0">
+                                    @if (commentary.Like == null)
+                                    {
+                                        <i class="fas fa-question text-info" style="font-size:45px"></i>
+                                    }
+                                    else if (commentary.Like == true)
+                                    {
+                                        <i class="fas fa-smile text-success" style="font-size:50px"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fas fa-frown text-danger" style="font-size:50px"></i>
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="card-body">
+                                <p class="card-text" style="text-transform:capitalize;">
+                                    @commentary.Description
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-muted" style="position: absolute;right: 20px;bottom: 15px;">
+                                        @commentary.CreatedDate.ToShortDateString()
+                                    </small>
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<div class="container my-3">
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-info" id="staticBackdropLabel">Info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-justify">
+                    <p>
+                        <b>Makyaj Malzemesi Seçimi Nasıl Olmalı?</b>
+                        <br />
+                        Makyaj malzemelerinin dokusu, renk tonları kişinin cildi ve saç, göz, ten rengi ile uyumlu olmalıdır. Makyaj malzemelerinin tamamı da birbiri ile uyumlu olmalıdır. Ayrıca parça parça malzeme alımından çok bütüncül olarak takım halinde ürün almak ve uygun fırça, sünger gibi malzemeler de sahip olmak gerek. Tüm bunlarla birlikte malzemelerin renkleri kişinin gündelik yaşantısına, giyim tarzına da uygun olmalıdır.
+                    </p>
+                    <p>
+                        <b>Doğru Malzemeler İçin Alışverişten Önce Planlama Yapın!</b>
+                        <br />
+                        Sürekli evde ya da sokakta geçen bir gündelik yaşamınız mı var, sürekli ağır toplantılara katıldığınız bir iş yaşamı ya da sıklıkla dahil olmayı sevdiğiniz gece hayatı ve davetler...işte bunlar sizin nasıl renklerde ve dokuda malzeme seçmeniz gerektiğini belirleyecek detaylar. Eğer günlük yaşamı daha çok ev ortamında geçen bir anneyseniz, renkleri çok baskın olmayan, giysileri kolayca boyamayacak dokuda malzemeler, ten renginizle uyumlu renkler tercih etmelisiniz. Örneğin günlük makyaj malzemesi kullanımı için nemlendirici, hafif bir renk olan dudak kremi, toprak rengi tonlarında far paleti, kolayca temizleyebileceğiniz bir maskara yeterli olabilir. Sabahın erken saatlerinden itibaren sürekli koşuşturduğunuz bir gündelik yaşam için kalıcılığı fazla olan malzemeler tercih etmeniz önerilir.
+                    </p>
+                    <p>
+                        <b>Makyaj Malzemesi Almadan Önce Kendi Yüzünüzü Tanıyın!</b>
+                        <br />
+                        Beyaz bir tende iyi görünecek renklerle esmer bir tende iyi bir etki yaratacak renkler birbirinden çok farklıdır. Benzer şekilde yağlı bir ciltte uzun süre ve düzgün bir biçimde kalacak malzeme dokusu ile kuru bir cilt için uygun olan doku çok farklıdır. Bu nedenle cilt dokusu, ten rengi, göz rengi, saç rengi makyaj malzemesi seçiminde dikkate alınmalıdır.
+                    </p>
+
+
+                    @*<p>
+                            İpeksi bir matlık sunan kadifemsi Flormar Silk Matte Liquid Lipstick'in yumuşak dokusu
+                            sayesinde uygulama yapman çok kolay! İçeriğinde bulunan cupuacu yağı sayesinde
+                            dudaklarını kurutmayan ve besleyen Silk Matte, 16 renk alternatifiyle seni bekliyor.
+                            Silk Matte Liquid Lipstick Kadifemsi Mat Koyu Pembe Ruj
+                            *GFK Araştırma Sonucu; Kullananların %99'u kalıcı mat dokusunun yanında, dudaklarını
+                            kurutmadan rahat kullandıkları bu ürünü tavsiye ediyor!
+                        </p>
+                        <p>
+                            <b>ADIM 1 :</b>
+                            Silk Matte Liquid ruju, ürünün kendi fırçasıyla dudaklarınızın merkezine uyguladıktan
+                            sonra kenarlara doğru yayabilirsin.
+                        </p>
+                        <p>
+                            <b>ADIM 2 :</b>
+                            Kusursuz bir görünüm için, ruj fırçası yardımıyla şekillendirebilirsin.
+                        </p>
+                        <p>
+                            <b>ADIM 3 :</b>
+                            Ardından pamuklu çubuk ile dudaklarınızın taşan yerlerini temizleyebilirsin. Daha keskin
+                            bir görünüm için, kesik uçlu bir fırçayla aldığınız concealer ile de temizleyebilirsin.
+                        </p>
+                        <p>
+                            <b>ADIM 4 :</b>
+                            Son olarak kendi fırçası ile tekrar uygulayıp tamamlayabilirsin.
+                        </p>*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="staticBackdrop2" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-info" id="staticBackdropLabel">Commentary</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @using (Html.BeginForm("SaveCommentary", "Home", new { ProductId = Model.Id }, FormMethod.Post, null))
+                {
+                    @Html.AntiForgeryToken();
+                    <div class="modal-body">
+                        <input id="commantaryline" type="hidden" value="@Model.Commentaries.Count()" />
+                        <input id="likevalue" type="hidden" name="likevalue" value="" />
+                        <div id="commentfirst">
+                            <div class="text-info">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <p>
+                                <span id="firstcommentlink" class="" style="color:darkred; cursor:pointer"><b>Yorum yazan</b></span>
+                                ilk siz olun
+                            </p>
+                        </div>
+                        <div id="comment" class="form-group">
+                            <div class="clearfix">
+                                <label class="font-weight-bold mt-3">Yorum</label>
+                                <div class="float-right mr-2" style="font-size:30px">
+                                    <i id="like" class="fas fa-smile text-secondary" style="cursor:pointer"></i>
+                                    <i id="dislike" class="fas fa-frown text-secondary" style="cursor:pointer"></i>
+                                </div>
+                            </div>
+                            <textarea required maxlength="500" pattern="\S+" name="comment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                        <button id="btncommentsubmit" type="submit" class="btn btn-info">Submit</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+

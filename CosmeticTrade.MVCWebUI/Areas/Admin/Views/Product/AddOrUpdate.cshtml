@@ -1,0 +1,101 @@
+﻿@model Product
+@{
+    ViewBag.Title = "AddOrUpdate";
+}
+
+@using (Html.BeginForm("AddOrUpdate", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Brand, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Brand, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Insales, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Insales)
+                    @Html.ValidationMessageFor(model => model.Insales, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Categori</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(i => i.CategoryId, (SelectList)ViewBag.Category, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <input type="hidden" id="ImageId" value="" name="ImageIds" />
+        @if (Model.Images.Where(i => i.IsDeleted == false).ToList().Count() > 0)
+        {
+            <div class="form-group">
+                <label class="control-label col-md-2">Product Images</label>
+                <div class="col-md-10">
+                    @foreach (var image in Model.Images)
+                    {
+                        if (image.IsDeleted == false)
+                        {
+                            <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                                <img class="img-thumbnail" style="height:80px;width:80px" src="@image.ImageUrl" alt="@Model.Name" />
+                                <button onclick="DeleteImage(this, @image.Id)" type="button" class="btn btn-danger btn-sm">Delete</button>
+                            </div>
+                        }
+
+                    }
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            <label class="control-label col-md-2">Images Update</label>
+            <div class="col-md-10">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFileLangHTML" accept=”image/*” multiple name="img">
+                    <label class="custom-file-label" for="customFileLangHTML" data-browse="Images Load">Select Images</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" value="Kaydet" class="btn btn-success"><i class="far fa-save"></i></button>
+                <a href="/Admin/Product/List/" class="btn btn-warning "><i class="fas fa-list"></i></a>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,30 @@
+﻿@model Product
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<h3>Are you sure you want to delete this product?</h3>
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <button type="submit" value="Delete" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+
+            <a href="/Admin/Product/List/" class="btn btn-warning "><i class="fas fa-list"></i></a>
+        </div>
+    }
+</div>

@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link href="~/Content/Css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Css/all.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row fixed-top border-bottom border-dark" style="height:60px;">
+            <div class="col text-white d-flex justify-content-between" style="background-color: #82222B;">
+                <a href="/Home/Index">
+                    <img style="margin-top:11px; height:38px;" src="/Content/Images/Logo.bmp">
+                </a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class=" nav-item active">
+                        <a class="nav-link" style="font-size:17px;line-height:44px;" href=" /Account/Logout"><i class="fas fa-user-secret"></i> LogOut</a>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row" style="margin-top:60px">
+            <div class="col-lg-2 col-md-3 position-sticky p-0  border-secondary ">
+
+
+                <div class="accordion d-md-none" id="accordionExample">
+                    <div data-toggle="collapse" data-target="#category" aria-expanded="true" aria-controls="category" class="list-group-item rounded-0 bg-secondary text-white"><label class="m-0 font-weight-bold">Category</label></div>
+                    <div id="category" aria-labelledby="category" data-parent="#accordionExample" class="collapse show">
+                        <a href="/Admin/Category/AddOrUpdate" class="list-group-item list-group-item-action rounded-0"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"><i class="fas fa-angle-right"></i></i> Category Add</a>
+                        <a href="/Admin/Category/List" class="list-group-item list-group-item-action rounded-0"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"><i class="fas fa-angle-right"></i></i> Category List</a>
+                    </div>
+                    <div data-toggle="collapse" data-target="#order" aria-expanded="false" aria-controls="order" class="list-group-item rounded-0 bg-secondary text-white"><label class="m-0 font-weight-bold">Shop</label></div>
+                    <div id="order" aria-labelledby="order" data-parent="#accordionExample" class="collapse">
+                        <a href="/Admin/Shop/List" class="list-group-item list-group-item-action"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"><i class="fas fa-angle-right"></i></i> Shop List</a>
+                    </div>
+                    <div data-toggle="collapse" data-target="#product" aria-expanded="false" aria-controls="product" class="list-group-item rounded-0 bg-secondary text-white"><label class="m-0 font-weight-bold">Product</label></div>
+                    <div id="product" aria-labelledby="order" data-parent="#accordionExample" class="collapse">
+                        <a href="/Admin/Product/AddOrUpdate" class="list-group-item list-group-item-action"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"><i class="fas fa-angle-right"></i></i> Product Add</a>
+                        <a href="/Admin/Product/List" class="list-group-item list-group-item-action border-bottom"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"><i class="fas fa-angle-right"></i></i> Product List</a>
+                    </div>
+                </div>
+                <div class="list-group list-group-flush d-none d-md-block">
+                    <div class="list-group-item bg-secondary text-white"><label class="m-0 font-weight-bold">Category</label></div>
+                    <div><a href="/Admin/Category/AddOrUpdate" class="list-group-item list-group-item-action"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"><i class="fas fa-angle-right"></i></i> Category Add</a></div>
+                    <a href="/Admin/Category/List" class="list-group-item list-group-item-action"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"><i class="fas fa-angle-right"></i></i> Category List</a>
+                    <div class="list-group-item  bg-secondary text-white"><label class="m-0 font-weight-bold">Shop</label></div>
+                    <a href="/Admin/Shop/List" class="list-group-item list-group-item-action"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"><i class="fas fa-angle-right"></i></i> Shop List</a>
+                    <div class="list-group-item  bg-secondary text-white"><label class="m-0 font-weight-bold">Product</label></div>
+                    <a href="/Admin/Product/AddOrUpdate" class="list-group-item list-group-item-action"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"><i class="fas fa-angle-right"></i></i> Product Add</a>
+                    <a href="/Admin/Product/List" class="list-group-item list-group-item-action border-bottom"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"><i class="fas fa-angle-right"></i></i> Product List</a>
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-9 p-0 p-sm-3">@RenderBody()</div>
+        </div>
+    </div>
+    <script src="~/Scripts/Js/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/Js/popper.min.js"></script>
+    <script src="~/Scripts/Js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Js/bs-custom-file-input.min.js"></script>
+    <script src="~/Scripts/Js/js.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+﻿@model List<Product>
+
+<div class="row" style="margin-top:5%">
+    @foreach (var product in Model)
+    {
+        <div class="col text-center">
+            <a href="/Home/Detail/@product.Id">
+                <img class="rounded-circle shadow-lg" style="max-width:85%" src="@(product.Images.FirstOrDefault(i=>i.IsDeleted==false)!=null?product.Images.FirstOrDefault(i=>i.IsDeleted==false).ImageUrl:"/Content/Images/None.jpg")" alt="@product.Name">
+            </a>
+        </div>
+    }
+</div>
